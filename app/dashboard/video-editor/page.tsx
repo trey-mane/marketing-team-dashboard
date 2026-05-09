@@ -1,7 +1,6 @@
-import { solarCompanyContent, trendingTopics } from "@/lib/data";
 import SectionHeader from "@/components/SectionHeader";
-import ContentGrid from "@/components/ContentGrid";
-import TrendingTopicsGrid from "@/components/TrendingTopicsGrid";
+import SolarContentFeed from "@/components/SolarContentFeed";
+import TrendingTopicsFeed from "@/components/TrendingTopicsFeed";
 import DailyCreatorFeed from "@/components/DailyCreatorFeed";
 
 export default function VideoEditorDashboard() {
@@ -38,7 +37,7 @@ export default function VideoEditorDashboard() {
           badge="Claude Feed"
           badgeColor="#10B981"
         />
-        <ContentGrid items={solarCompanyContent} />
+        <SolarContentFeed />
       </section>
 
       {/* Trending Topics */}
@@ -50,7 +49,7 @@ export default function VideoEditorDashboard() {
           badge="Updated Weekly"
           badgeColor="#F97316"
         />
-        <TrendingTopicsGrid topics={trendingTopics} />
+        <TrendingTopicsFeed />
       </section>
     </div>
   );

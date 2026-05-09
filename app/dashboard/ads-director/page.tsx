@@ -1,7 +1,7 @@
-import { metaAds, trendingTopics, promos } from "@/lib/data";
+import { promos } from "@/lib/data";
 import SectionHeader from "@/components/SectionHeader";
-import MetaAdsGrid from "@/components/MetaAdsGrid";
-import TrendingTopicsGrid from "@/components/TrendingTopicsGrid";
+import MetaAdsFeed from "@/components/MetaAdsFeed";
+import TrendingTopicsFeed from "@/components/TrendingTopicsFeed";
 import PromoCalendar from "@/components/PromoCalendar";
 
 export default function AdsDirectorDashboard() {
@@ -26,7 +26,7 @@ export default function AdsDirectorDashboard() {
           badge="Claude Feed"
           badgeColor="#8B5CF6"
         />
-        <MetaAdsGrid ads={metaAds} />
+        <MetaAdsFeed />
       </section>
 
       {/* Trending Topics */}
@@ -38,7 +38,7 @@ export default function AdsDirectorDashboard() {
           badge="Updated Weekly"
           badgeColor="#F97316"
         />
-        <TrendingTopicsGrid topics={trendingTopics} />
+        <TrendingTopicsFeed />
       </section>
 
       {/* Promo Calendar */}
