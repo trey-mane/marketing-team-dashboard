@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import type { DailyPull } from "@/lib/creator-pulls";
 
 async function getKV() {
+  if (!process.env.KV_REST_API_URL || !process.env.KV_REST_API_TOKEN) {
+    throw new Error("KV not configured");
+  }
   const { kv } = await import("@vercel/kv");
   return kv;
 }
