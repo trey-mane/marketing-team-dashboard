@@ -15,7 +15,9 @@
       "Bash(git commit *)",
       "Bash(git push *)",
       "Bash(gh auth *)",
-      "Bash(ssh -T git@github.com)"
+      "Bash(ssh -T git@github.com)",
+      "Bash(cp /Users/treymicheletti/Downloads/MM.png /Users/treymicheletti/Desktop/team-dashboard/public/logo.png)",
+      "Bash(cp /Users/treymicheletti/Downloads/MM.png /Users/treymicheletti/Desktop/team-dashboard/public/favicon.png)"
     ]
   }
 }

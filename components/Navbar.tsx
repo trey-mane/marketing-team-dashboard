@@ -28,20 +28,13 @@ export default function Navbar({ userName, role }: { userName: string; role: str
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand */}
         <div className="flex items-center gap-3">
-          <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center"
-            style={{ background: "rgba(249,115,22,0.15)", border: "1px solid rgba(249,115,22,0.3)" }}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="5" fill="#f97316" />
-              <line x1="12" y1="2" x2="12" y2="5" stroke="#f97316" strokeWidth="2.5" strokeLinecap="round" />
-              <line x1="12" y1="19" x2="12" y2="22" stroke="#f97316" strokeWidth="2.5" strokeLinecap="round" />
-              <line x1="2" y1="12" x2="5" y2="12" stroke="#f97316" strokeWidth="2.5" strokeLinecap="round" />
-              <line x1="19" y1="12" x2="22" y2="12" stroke="#f97316" strokeWidth="2.5" strokeLinecap="round" />
-            </svg>
-          </div>
+          <img
+            src="/logo.png"
+            alt="Micheletti Media"
+            className="w-8 h-8 rounded-lg object-cover"
+          />
           <span className="font-semibold text-sm" style={{ color: "var(--text-primary)" }}>
-            Team Dashboard
+            Micheletti Media
           </span>
         </div>
 

@@ -47,25 +47,11 @@ export default function LoginPage() {
 
       <div className="relative w-full max-w-sm mx-4">
         <div className="text-center mb-10">
-          <div
-            className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-4"
-            style={{ background: "rgba(249,115,22,0.15)", border: "1px solid rgba(249,115,22,0.3)" }}
-          >
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="5" fill="#f97316" />
-              <line x1="12" y1="2" x2="12" y2="5" stroke="#f97316" strokeWidth="2" strokeLinecap="round" />
-              <line x1="12" y1="19" x2="12" y2="22" stroke="#f97316" strokeWidth="2" strokeLinecap="round" />
-              <line x1="2" y1="12" x2="5" y2="12" stroke="#f97316" strokeWidth="2" strokeLinecap="round" />
-              <line x1="19" y1="12" x2="22" y2="12" stroke="#f97316" strokeWidth="2" strokeLinecap="round" />
-              <line x1="4.22" y1="4.22" x2="6.34" y2="6.34" stroke="#f97316" strokeWidth="2" strokeLinecap="round" />
-              <line x1="17.66" y1="17.66" x2="19.78" y2="19.78" stroke="#f97316" strokeWidth="2" strokeLinecap="round" />
-              <line x1="19.78" y1="4.22" x2="17.66" y2="6.34" stroke="#f97316" strokeWidth="2" strokeLinecap="round" />
-              <line x1="6.34" y1="17.66" x2="4.22" y2="19.78" stroke="#f97316" strokeWidth="2" strokeLinecap="round" />
-            </svg>
-          </div>
-          <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>
-            Team Dashboard
-          </h1>
+          <img
+            src="/logo.png"
+            alt="Micheletti Media"
+            className="w-24 h-24 rounded-2xl mx-auto mb-5 object-cover"
+          />
           <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
             Sign in to access your workspace
           </p>
