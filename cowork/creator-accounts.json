@@ -1,0 +1,48 @@
+{
+  "note": "Add or remove creator accounts here. Mirror changes in ~/.claude/scheduled-tasks/daily-creator-pull/SKILL.md",
+  "creators": [
+    {
+      "name": "Dan Martell",
+      "accentColor": "#F97316",
+      "accounts": {
+        "YouTube": "https://www.youtube.com/@danmartell",
+        "Instagram": "https://www.instagram.com/danmartell",
+        "TikTok": "https://www.tiktok.com/@danmartell"
+      }
+    },
+    {
+      "name": "Gary Vee",
+      "accentColor": "#3B82F6",
+      "accounts": {
+        "YouTube": "https://www.youtube.com/@garyvee",
+        "Instagram": "https://www.instagram.com/garyvee",
+        "TikTok": "https://www.tiktok.com/@garyvee"
+      }
+    },
+    {
+      "name": "Alex Hormozi",
+      "accentColor": "#EF4444",
+      "accounts": {
+        "YouTube": "https://www.youtube.com/@hormozi",
+        "Instagram": "https://www.instagram.com/hormozi",
+        "TikTok": "https://www.tiktok.com/@hormozi"
+      }
+    },
+    {
+      "name": "Sam Gaudet",
+      "accentColor": "#8B5CF6",
+      "accounts": {
+        "Instagram": "https://www.instagram.com/sam.gaudet"
+      }
+    },
+    {
+      "name": "Diary of a CEO",
+      "accentColor": "#10B981",
+      "accounts": {
+        "YouTube": "https://www.youtube.com/@diaryofaceo",
+        "Instagram": "https://www.instagram.com/diaryofaceo",
+        "TikTok": "https://www.tiktok.com/@diaryofaceo"
+      }
+    }
+  ]
+}
