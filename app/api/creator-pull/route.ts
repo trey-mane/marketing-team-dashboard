@@ -1,27 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { DailyPull } from "@/lib/creator-pulls";
 
-// Claude co-work POSTs here each morning at 8 AM:
-//   POST /api/creator-pull
-//   Authorization: Bearer <CREATOR_PULL_SECRET>
-//   { date, pulledAt, videos: [...] }
-//
-// Set CREATOR_PULL_SECRET in your Vercel env vars and share it with your Claude co-work config.
-
 async function getKV() {
-  // Dynamically import so the app builds even without KV env vars configured
   const { kv } = await import("@vercel/kv");
   return kv;
 }
 
 export async function POST(req: NextRequest) {
-  const secret = process.env.CREATOR_PULL_SECRET;
-  const auth = req.headers.get("authorization");
-
-  if (!secret || auth !== `Bearer ${secret}`) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   let body: DailyPull;
   try {
     body = await req.json();
