@@ -8,13 +8,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Credentials({
       name: "credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
+        username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null;
+        if (!credentials?.username || !credentials?.password) return null;
 
-        const user = USERS.find((u) => u.email === credentials.email);
+        const user = USERS.find((u) => u.username === credentials.username);
         if (!user) return null;
 
         const valid = await bcrypt.compare(
@@ -23,7 +23,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         );
         if (!valid) return null;
 
-        return { id: user.id, name: user.name, email: user.email, role: user.role };
+        return { id: user.id, name: user.name, username: user.username, role: user.role };
       },
     }),
   ],

@@ -5,7 +5,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ export default function LoginPage() {
     setLoading(true);
 
     const result = await signIn("credentials", {
-      email,
+      username,
       password,
       redirect: false,
     });
@@ -25,7 +25,7 @@ export default function LoginPage() {
     setLoading(false);
 
     if (result?.error) {
-      setError("Invalid email or password.");
+      setError("Invalid username or password.");
     } else {
       router.push("/dashboard");
       router.refresh();
@@ -37,7 +37,6 @@ export default function LoginPage() {
       className="min-h-screen flex items-center justify-center"
       style={{ background: "var(--background)" }}
     >
-      {/* Background glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -47,7 +46,6 @@ export default function LoginPage() {
       />
 
       <div className="relative w-full max-w-sm mx-4">
-        {/* Logo / Brand */}
         <div className="text-center mb-10">
           <div
             className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-4"
@@ -73,7 +71,6 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {/* Card */}
         <div
           className="rounded-2xl p-8"
           style={{
@@ -87,26 +84,23 @@ export default function LoginPage() {
                 className="block text-sm font-medium mb-2"
                 style={{ color: "var(--text-secondary)" }}
               >
-                Email
+                Username
               </label>
               <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@team.com"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="username"
                 required
+                autoComplete="username"
                 className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all"
                 style={{
                   background: "var(--surface-2)",
                   border: "1px solid var(--border)",
                   color: "var(--text-primary)",
                 }}
-                onFocus={(e) =>
-                  (e.currentTarget.style.borderColor = "#f97316")
-                }
-                onBlur={(e) =>
-                  (e.currentTarget.style.borderColor = "var(--border)")
-                }
+                onFocus={(e) => (e.currentTarget.style.borderColor = "#f97316")}
+                onBlur={(e) => (e.currentTarget.style.borderColor = "var(--border)")}
               />
             </div>
 
@@ -123,18 +117,15 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
+                autoComplete="current-password"
                 className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all"
                 style={{
                   background: "var(--surface-2)",
                   border: "1px solid var(--border)",
                   color: "var(--text-primary)",
                 }}
-                onFocus={(e) =>
-                  (e.currentTarget.style.borderColor = "#f97316")
-                }
-                onBlur={(e) =>
-                  (e.currentTarget.style.borderColor = "var(--border)")
-                }
+                onFocus={(e) => (e.currentTarget.style.borderColor = "#f97316")}
+                onBlur={(e) => (e.currentTarget.style.borderColor = "var(--border)")}
               />
             </div>
 
