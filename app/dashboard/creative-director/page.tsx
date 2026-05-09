@@ -1,11 +1,9 @@
-import { solarCompanyContent } from "@/lib/data";
 import SectionHeader from "@/components/SectionHeader";
-import ContentGrid from "@/components/ContentGrid";
+import SolarContentFeed from "@/components/SolarContentFeed";
 
 export default function CreativeDirectorDashboard() {
   return (
     <div className="space-y-8">
-      {/* Page Header */}
       <div>
         <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>
           Creative Director
@@ -15,7 +13,6 @@ export default function CreativeDirectorDashboard() {
         </p>
       </div>
 
-      {/* Solar Company Content */}
       <section>
         <SectionHeader
           title="Top Solar Company Content"
@@ -24,7 +21,7 @@ export default function CreativeDirectorDashboard() {
           badge="Claude Feed"
           badgeColor="#10B981"
         />
-        <ContentGrid items={solarCompanyContent} />
+        <SolarContentFeed />
       </section>
     </div>
   );

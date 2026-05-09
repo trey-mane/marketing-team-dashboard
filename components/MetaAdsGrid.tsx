@@ -13,12 +13,17 @@ export default function MetaAdsGrid({ ads }: { ads: AdItem[] }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
       {ads.map((ad) => (
-        <div
+        <a
           key={ad.id}
-          className="rounded-xl overflow-hidden transition-all duration-200"
+          href={ad.url ?? undefined}
+          target={ad.url ? "_blank" : undefined}
+          rel={ad.url ? "noopener noreferrer" : undefined}
+          className="rounded-xl overflow-hidden transition-all duration-200 block"
           style={{
             background: "var(--surface)",
             border: "1px solid var(--border)",
+            cursor: ad.url ? "pointer" : "default",
+            textDecoration: "none",
           }}
           onMouseEnter={(e) =>
             (e.currentTarget.style.borderColor = ad.badgeColor + "60")
@@ -110,7 +115,7 @@ export default function MetaAdsGrid({ ads }: { ads: AdItem[] }) {
               ))}
             </div>
           </div>
-        </div>
+        </a>
       ))}
     </div>
   );

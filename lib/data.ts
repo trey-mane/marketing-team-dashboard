@@ -9,6 +9,7 @@ export interface ContentItem {
   date: string;
   tags: string[];
   thumbnailColor: string;
+  url?: string;
 }
 
 export interface AdItem {
@@ -21,6 +22,7 @@ export interface AdItem {
   estimatedRuntime: string;
   tags: string[];
   badgeColor: string;
+  url?: string;
 }
 
 export interface TrendingTopic {

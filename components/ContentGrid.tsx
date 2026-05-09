@@ -15,12 +15,17 @@ export default function ContentGrid({ items }: { items: ContentItem[] }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       {items.map((item) => (
-        <div
+        <a
           key={item.id}
-          className="rounded-xl overflow-hidden transition-all duration-200"
+          href={item.url ?? undefined}
+          target={item.url ? "_blank" : undefined}
+          rel={item.url ? "noopener noreferrer" : undefined}
+          className="rounded-xl overflow-hidden transition-all duration-200 block"
           style={{
             background: "var(--surface)",
             border: "1px solid var(--border)",
+            cursor: item.url ? "pointer" : "default",
+            textDecoration: "none",
           }}
           onMouseEnter={(e) =>
             (e.currentTarget.style.borderColor = item.thumbnailColor + "60")
@@ -112,7 +117,7 @@ export default function ContentGrid({ items }: { items: ContentItem[] }) {
               ))}
             </div>
           </div>
-        </div>
+        </a>
       ))}
     </div>
   );
