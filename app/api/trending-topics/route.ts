@@ -1,17 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Redis } from "@upstash/redis";
 import { trendingTopics } from "@/lib/data";
 
-async function getKV() {
+function getKV(): Redis {
   if (!process.env.KV_REST_API_URL || !process.env.KV_REST_API_TOKEN) {
     throw new Error("KV not configured");
   }
-  const { kv } = await import("@vercel/kv");
-  return kv;
+  return new Redis({
+    url: process.env.KV_REST_API_URL,
+    token: process.env.KV_REST_API_TOKEN,
+  });
 }
 
 export async function GET() {
   try {
-    const kv = await getKV();
+    const kv = getKV();
     const raw = await kv.get<string>("trending-topics:latest");
     if (raw) return NextResponse.json(JSON.parse(raw));
     throw new Error("no data");
@@ -31,7 +34,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing items array" }, { status: 400 });
   }
   try {
-    const kv = await getKV();
+    const kv = getKV();
     await kv.set("trending-topics:latest", JSON.stringify(body.items));
     return NextResponse.json({ ok: true, count: body.items.length });
   } catch {

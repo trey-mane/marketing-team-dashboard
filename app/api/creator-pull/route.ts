@@ -1,12 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Redis } from "@upstash/redis";
 import type { DailyPull } from "@/lib/creator-pulls";
 
-async function getKV() {
+function getKV(): Redis {
   if (!process.env.KV_REST_API_URL || !process.env.KV_REST_API_TOKEN) {
     throw new Error("KV not configured");
   }
-  const { kv } = await import("@vercel/kv");
-  return kv;
+  return new Redis({
+    url: process.env.KV_REST_API_URL,
+    token: process.env.KV_REST_API_TOKEN,
+  });
 }
 
 export async function POST(req: NextRequest) {
@@ -22,21 +25,17 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const kv = await getKV();
+    const kv = getKV();
 
-    // Store this pull keyed by date
     await kv.set(`creator-pull:${body.date}`, JSON.stringify(body));
 
-    // Maintain a sorted index of the last 7 dates
     const indexRaw = await kv.get<string>("creator-pull:index");
     const index: string[] = indexRaw ? JSON.parse(indexRaw) : [];
 
     if (!index.includes(body.date)) {
       index.push(body.date);
-      index.sort((a, b) => b.localeCompare(a)); // newest first
-      // Keep only last 7
-      const trimmed = index.slice(0, 7);
-      await kv.set("creator-pull:index", JSON.stringify(trimmed));
+      index.sort((a, b) => b.localeCompare(a));
+      await kv.set("creator-pull:index", JSON.stringify(index.slice(0, 7)));
     }
 
     return NextResponse.json({ ok: true, date: body.date });
