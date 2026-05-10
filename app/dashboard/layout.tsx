@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import Navbar from "@/components/Navbar";
+import SprintButton from "@/components/SprintButton";
 
 export default async function DashboardLayout({
   children,
@@ -16,6 +17,9 @@ export default async function DashboardLayout({
     <div className="min-h-screen flex flex-col" style={{ background: "var(--background)" }}>
       <Navbar userName={user.name ?? ""} role={user.role ?? ""} />
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-6">
+          <SprintButton />
+        </div>
         {children}
       </main>
     </div>

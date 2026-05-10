@@ -375,10 +375,10 @@ export const promos: Promo[] = [
     id: "p2",
     month: "May",
     year: 2026,
-    name: "Summer Ready Sale",
-    offer: "$500 Off + 18-Month No-Payment Financing",
+    name: "Summer Ready Promo",
+    offer: "$2,500 Off Solar + Battery Systems 3KW or Greater",
     details:
-      "Running May 1–31. Messaging focused on beating summer utility spikes. 18-month deferred payment through GreenSky. No prepayment penalty.",
+      "Valid through 5/31/26. Get ready for peak rates. Not valid with other offers.",
     status: "Current",
     color: "#F97316",
   },
