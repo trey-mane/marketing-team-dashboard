@@ -3,9 +3,9 @@
 import { signOut } from "next-auth/react";
 
 const roleLabels: Record<string, string> = {
-  "creative-director": "Creative Director",
-  "video-editor": "Video Editor",
-  "ads-director": "Ads Director",
+  "creative-director": "Creative Advisor",
+  "video-editor": "Content Creator",
+  "ads-director": "Meta Ads Manager",
 };
 
 const roleColors: Record<string, string> = {

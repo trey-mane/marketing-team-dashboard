@@ -11,21 +11,21 @@ export interface AppUser {
 export const USERS: AppUser[] = [
   {
     id: "1",
-    name: "Creative Director",
+    name: "Ryan Tom",
     username: "ryantom",
     password: "$2b$12$mQwmbWoQ8yFzWiu4ipcg/udO7Q0hJNdOAEXiOuuVhyTXSz6eGbuii",
     role: "creative-director",
   },
   {
     id: "2",
-    name: "Video Editor",
+    name: "Rochelle Gamboa",
     username: "rochellegamboa",
     password: "$2b$12$zJoVZ03uHRHhdKs6bB3.yuUcEv9evEnsldC4gW8xKCimoIywxrBxa",
     role: "video-editor",
   },
   {
     id: "3",
-    name: "Ads Director",
+    name: "Cole Baker",
     username: "colebaker",
     password: "$2b$12$nvHKwi8ViJKJe1sjP0owi.Ccth3jrcA97GRr3veW1xFMLV0rr2Diy",
     role: "ads-director",

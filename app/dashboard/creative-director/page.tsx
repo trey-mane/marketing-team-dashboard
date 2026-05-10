@@ -6,7 +6,7 @@ export default function CreativeDirectorDashboard() {
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>
-          Creative Director
+          Creative Advisor
         </h1>
         <p className="mt-1 text-sm" style={{ color: "var(--text-secondary)" }}>
           Research hub — what top solar companies are producing right now

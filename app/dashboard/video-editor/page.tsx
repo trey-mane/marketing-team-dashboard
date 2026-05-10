@@ -9,10 +9,10 @@ export default function VideoEditorDashboard() {
       {/* Page Header */}
       <div>
         <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>
-          Video Editor
+          Content Creator
         </h1>
         <p className="mt-1 text-sm" style={{ color: "var(--text-secondary)" }}>
-          Research hub — top creators, solar industry content, and trending topics
+          Research hub for topics, wrapping paper, and content formats.
         </p>
       </div>
 
@@ -20,7 +20,7 @@ export default function VideoEditorDashboard() {
       <section>
         <SectionHeader
           title="Daily Creator Pulls"
-          subtitle="What top solar & energy creators posted in the last 24 hours — format reference, not content"
+          subtitle="Latest content from top creators to study for format & wrapping paper ideas."
           icon="🎬"
           badge="8 AM Daily · Claude co-work"
           badgeColor="#3B82F6"

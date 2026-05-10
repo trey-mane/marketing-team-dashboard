@@ -10,7 +10,7 @@ export default function AdsDirectorDashboard() {
       {/* Page Header */}
       <div>
         <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>
-          Ads Director
+          Meta Ads Manager
         </h1>
         <p className="mt-1 text-sm" style={{ color: "var(--text-secondary)" }}>
           Meta ads intelligence, trending topics, and promo calendar
