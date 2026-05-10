@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({ ok: true, date: body.date });
-  } catch {
-    return NextResponse.json({ error: "Storage unavailable" }, { status: 503 });
+  } catch (e) {
+    return NextResponse.json({ error: "Storage unavailable", detail: String(e) }, { status: 503 });
   }
 }
