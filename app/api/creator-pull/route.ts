@@ -27,15 +27,14 @@ export async function POST(req: NextRequest) {
   try {
     const kv = getKV();
 
-    await kv.set(`creator-pull:${body.date}`, JSON.stringify(body));
+    await kv.set(`creator-pull:${body.date}`, body);
 
-    const indexRaw = await kv.get<string>("creator-pull:index");
-    const index: string[] = indexRaw ? JSON.parse(indexRaw) : [];
+    const index = (await kv.get<string[]>("creator-pull:index")) ?? [];
 
     if (!index.includes(body.date)) {
       index.push(body.date);
       index.sort((a, b) => b.localeCompare(a));
-      await kv.set("creator-pull:index", JSON.stringify(index.slice(0, 7)));
+      await kv.set("creator-pull:index", index.slice(0, 7));
     }
 
     return NextResponse.json({ ok: true, date: body.date });

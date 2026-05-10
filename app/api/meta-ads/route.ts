@@ -15,8 +15,8 @@ function getKV(): Redis {
 export async function GET() {
   try {
     const kv = getKV();
-    const raw = await kv.get<string>("meta-ads:latest");
-    if (raw) return NextResponse.json(JSON.parse(raw));
+    const data = await kv.get("meta-ads:latest");
+    if (data) return NextResponse.json(data);
     throw new Error("no data");
   } catch {
     return NextResponse.json(metaAds);
@@ -35,9 +35,9 @@ export async function POST(req: NextRequest) {
   }
   try {
     const kv = getKV();
-    await kv.set("meta-ads:latest", JSON.stringify(body.items));
+    await kv.set("meta-ads:latest", body.items);
     return NextResponse.json({ ok: true, count: body.items.length });
-  } catch {
-    return NextResponse.json({ error: "Storage unavailable" }, { status: 503 });
+  } catch (e) {
+    return NextResponse.json({ error: "Storage unavailable", detail: String(e) }, { status: 503 });
   }
 }
