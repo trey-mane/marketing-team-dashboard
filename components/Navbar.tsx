@@ -1,6 +1,8 @@
 "use client";
 
 import { signOut } from "next-auth/react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const roleLabels: Record<string, string> = {
   "creative-director": "Creative Advisor",
@@ -17,6 +19,8 @@ const roleColors: Record<string, string> = {
 export default function Navbar({ userName, role }: { userName: string; role: string }) {
   const label = roleLabels[role] ?? role;
   const color = roleColors[role] ?? "#9ca3af";
+  const pathname = usePathname();
+  const onFunnelPage = pathname === "/dashboard/funnel-and-sales-process";
 
   return (
     <header
@@ -36,6 +40,32 @@ export default function Navbar({ userName, role }: { userName: string; role: str
           <span className="font-semibold text-sm" style={{ color: "var(--text-primary)" }}>
             Micheletti Media
           </span>
+        </div>
+
+        {/* Nav links */}
+        <div className="hidden sm:flex items-center gap-1">
+          <Link
+            href={`/dashboard/${role}`}
+            className="text-xs px-3 py-1.5 rounded-lg transition-all"
+            style={{
+              color: onFunnelPage ? "var(--text-secondary)" : "var(--text-primary)",
+              background: onFunnelPage ? "transparent" : "var(--surface-2)",
+              border: `1px solid ${onFunnelPage ? "transparent" : "var(--border)"}`,
+            }}
+          >
+            My Dashboard
+          </Link>
+          <Link
+            href="/dashboard/funnel-and-sales-process"
+            className="text-xs px-3 py-1.5 rounded-lg transition-all"
+            style={{
+              color: onFunnelPage ? "var(--text-primary)" : "var(--text-secondary)",
+              background: onFunnelPage ? "var(--surface-2)" : "transparent",
+              border: `1px solid ${onFunnelPage ? "var(--border)" : "transparent"}`,
+            }}
+          >
+            Funnel & Sales
+          </Link>
         </div>
 
         {/* User info + logout */}
