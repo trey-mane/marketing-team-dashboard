@@ -6,6 +6,7 @@ interface TeamMember {
   name: string;
   role: string;
   whatTheyDo: string;
+  group?: string;
 }
 
 interface FunnelStage {
@@ -20,6 +21,8 @@ interface FunnelStage {
 
 interface SalesStep {
   name: string;
+  role?: string;
+  numberedSteps?: string[];
   details?: string[];
 }
 
@@ -60,12 +63,6 @@ const FUNNEL_STAGES: FunnelStage[] = [
         whatTheyDo:
           "On-site filming for Jeremy. Captures the raw footage that fuels everything Rochelle edits.",
       },
-      {
-        name: "Cole Baker",
-        role: "Meta Ads",
-        whatTheyDo:
-          "Awareness-stage ad creative and audience targeting that puts Got Watts in front of the right homeowners on Meta platforms.",
-      },
     ],
   },
   {
@@ -101,23 +98,41 @@ const FUNNEL_STAGES: FunnelStage[] = [
     id: "conversion",
     number: "03",
     name: "CONVERSION",
-    subtitle: "New Customer",
+    subtitle: "Closed Deal",
     description:
-      "A qualified lead becomes a closed deal. This is where our work meets the Got Watts sales team. Our funnel ends here. Their sales process begins.",
+      "This is where our leads land. We don't close them — Got Watts does. Our job is to deliver qualified, pre-sold leads. Their job is to close.",
     color: "#10B981",
     teamMembers: [
       {
-        name: "Trey Micheletti",
-        role: "Growth Strategy",
-        whatTheyDo:
-          "Funnel optimization, brand alignment, and reporting. Ensures the leads we send are qualified, on-brand, and arrive pre-sold on Got Watts.",
+        name: "Samantha",
+        role: "Internal Sales Rep",
+        whatTheyDo: "~10 deals/mo · Capacity: 20–25",
+        group: "Internal",
+      },
+      {
+        name: "Jarrett",
+        role: "Internal Sales Rep",
+        whatTheyDo: "~10 deals/mo · Capacity: Close to Sam's",
+        group: "Internal",
+      },
+      {
+        name: "Bill & Adrian",
+        role: "External Dealer",
+        whatTheyDo: "Ready to activate — needs leads now.",
+        group: "External",
+      },
+      {
+        name: "Greg · Joshua · Skylar",
+        role: "External Dealers",
+        whatTheyDo: "Trusted dealers — unlock when leads flow.",
+        group: "External",
       },
     ],
   },
 ];
 
 const SALES_PROCESS: { subtitle: string; paths: SalesPath[] } = {
-  subtitle: "3–4 week sales process · Where our leads go to close",
+  subtitle: "A closer look at what every lead goes through once it reaches the Got Watts team.",
   paths: [
     {
       id: "normal",
@@ -126,15 +141,16 @@ const SALES_PROCESS: { subtitle: string; paths: SalesPath[] } = {
         { name: "Lead Comes In" },
         {
           name: "Podium",
-          details: ["Customer Service Rep", "Qualifies the lead via text"],
+          role: "Customer Service Rep",
+          details: ["Qualifies the lead via text"],
         },
         {
           name: "Vantage GHL",
-          details: [
-            "Sales Rep",
-            "Call, text, email",
-            "Discovery Call via Zoom",
-            "Gathers info, creates & presents options",
+          role: "Sales Rep",
+          numberedSteps: [
+            "Call, text, and email the lead",
+            "Book and run a Discovery Call via Zoom",
+            "Gather info, build options, and present",
             "2–3 follow-up meetings (30 min – 1 hr each)",
           ],
         },
@@ -153,11 +169,11 @@ const SALES_PROCESS: { subtitle: string; paths: SalesPath[] } = {
         },
         {
           name: "Vantage GHL",
-          details: [
-            "Sales Rep",
-            "Call, text, email (gather info + book discovery)",
-            "Discovery Call via Zoom",
-            "Gathers info, creates & presents options",
+          role: "Sales Rep",
+          numberedSteps: [
+            "Call, text, and email — gather info + book discovery",
+            "Run Discovery Call via Zoom",
+            "Gather info, build options, and present",
             "2–3 follow-up meetings (30 min – 1 hr each)",
           ],
         },
@@ -184,7 +200,7 @@ const USER_HIGHLIGHTS: Record<
   "Cole Baker": {
     firstName: "Cole",
     memberNames: ["Cole Baker"],
-    stageIds: ["awareness", "interest"],
+    stageIds: ["interest"],
   },
 };
 
@@ -198,26 +214,40 @@ function StepCard({ step, color }: { step: SalesStep; color: string }) {
         background: "var(--surface-2)",
         border: `1px solid ${color}30`,
         minWidth: 150,
-        maxWidth: 210,
+        maxWidth: 220,
       }}
     >
-      <p className="text-xs font-semibold mb-1" style={{ color }}>
+      <p className="text-xs font-semibold mb-0.5" style={{ color }}>
         {step.name}
       </p>
+      {step.role && (
+        <p className="text-xs font-medium mb-2" style={{ color: "var(--text-primary)" }}>
+          {step.role}
+        </p>
+      )}
       {step.details && (
-        <ul className="space-y-0.5">
+        <ul className="space-y-0.5 mb-1">
           {step.details.map((d, i) => (
-            <li key={i} className="text-xs leading-relaxed">
-              {i === 0 ? (
-                <span className="font-medium" style={{ color: "var(--text-primary)" }}>
-                  {d}
-                </span>
-              ) : (
-                <span style={{ color: "var(--text-secondary)" }}>· {d}</span>
-              )}
+            <li key={i} className="text-xs" style={{ color: "var(--text-secondary)" }}>
+              {d}
             </li>
           ))}
         </ul>
+      )}
+      {step.numberedSteps && (
+        <ol className="space-y-1">
+          {step.numberedSteps.map((s, i) => (
+            <li key={i} className="flex gap-1.5 text-xs">
+              <span
+                className="flex-shrink-0 font-bold"
+                style={{ color, minWidth: 14 }}
+              >
+                {i + 1}.
+              </span>
+              <span style={{ color: "var(--text-secondary)" }}>{s}</span>
+            </li>
+          ))}
+        </ol>
       )}
     </div>
   );
@@ -275,19 +305,22 @@ export default async function FunnelAndSalesProcessPage() {
       )}
 
       {/* Connected Flow */}
-      <div className="flex flex-col lg:flex-row gap-0 items-stretch">
+      <div className="flex flex-col lg:flex-row gap-6 items-start">
 
         {/* ── Marketing Funnel ── */}
         <div className="lg:w-[400px] flex-shrink-0">
-          <p
-            className="text-xs font-bold uppercase tracking-widest mb-3"
-            style={{ color: "var(--text-secondary)" }}
-          >
+          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-secondary)" }}>
             The Marketing Funnel
           </p>
           <div className="flex flex-col gap-3">
             {FUNNEL_STAGES.map((stage, i) => {
               const stageHighlighted = highlight?.stageIds.includes(stage.id) ?? false;
+
+              // Group conversion members
+              const internalMembers = stage.teamMembers.filter(m => m.group === "Internal");
+              const externalMembers = stage.teamMembers.filter(m => m.group === "External");
+              const ungroupedMembers = stage.teamMembers.filter(m => !m.group);
+
               return (
                 <div key={stage.id}>
                   <div
@@ -333,49 +366,43 @@ export default async function FunnelAndSalesProcessPage() {
                       {stage.description}
                     </p>
 
-                    {/* Team member cards */}
-                    <div className="flex flex-col gap-2">
-                      {stage.teamMembers.map((member) => {
-                        const isMe =
-                          stageHighlighted && (highlight?.memberNames.includes(member.name) ?? false);
-                        return (
-                          <div
-                            key={`${stage.id}-${member.name}`}
-                            className="rounded-lg p-3 relative"
-                            style={{
-                              background: isMe ? `${stage.color}10` : "var(--surface-2)",
-                              border: `1px solid ${isMe ? stage.color + "45" : "var(--border)"}`,
-                            }}
-                          >
-                            {isMe && (
-                              <span
-                                className="absolute top-2 right-2 font-bold rounded-full px-1.5 py-0.5"
-                                style={{
-                                  background: stage.color,
-                                  color: "#fff",
-                                  fontSize: 9,
-                                  letterSpacing: "0.05em",
-                                }}
-                              >
-                                YOU
-                              </span>
-                            )}
-                            <p
-                              className="text-xs font-semibold mb-0.5"
-                              style={{ color: "var(--text-primary)", paddingRight: isMe ? "2rem" : 0 }}
-                            >
-                              {member.name}
-                            </p>
-                            <p className="text-xs mb-1 font-medium" style={{ color: stage.color }}>
-                              {member.role}
-                            </p>
-                            <p className="text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                              {member.whatTheyDo}
-                            </p>
-                          </div>
-                        );
-                      })}
-                    </div>
+                    {/* Ungrouped members */}
+                    {ungroupedMembers.length > 0 && (
+                      <div className="flex flex-col gap-2">
+                        {ungroupedMembers.map((member) => {
+                          const isMe = stageHighlighted && (highlight?.memberNames.includes(member.name) ?? false);
+                          return (
+                            <MemberCard key={`${stage.id}-${member.name}`} member={member} color={stage.color} isMe={isMe} />
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {/* Grouped members (Conversion) */}
+                    {internalMembers.length > 0 && (
+                      <div className="mb-2">
+                        <p className="text-xs font-semibold mb-1.5 uppercase tracking-wide" style={{ color: stage.color, fontSize: 10 }}>
+                          Internal Sales Team
+                        </p>
+                        <div className="flex flex-col gap-2">
+                          {internalMembers.map((member) => (
+                            <MemberCard key={`${stage.id}-${member.name}`} member={member} color={stage.color} isMe={false} />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {externalMembers.length > 0 && (
+                      <div>
+                        <p className="text-xs font-semibold mb-1.5 uppercase tracking-wide" style={{ color: "var(--text-secondary)", fontSize: 10 }}>
+                          External Dealers
+                        </p>
+                        <div className="flex flex-col gap-2">
+                          {externalMembers.map((member) => (
+                            <MemberCard key={`${stage.id}-${member.name}`} member={member} color={stage.color} isMe={false} />
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Down arrow between stages */}
@@ -390,60 +417,12 @@ export default async function FunnelAndSalesProcessPage() {
           </div>
         </div>
 
-        {/* ── Connector (desktop) ── */}
-        <div className="hidden lg:flex flex-col items-center justify-center px-4 flex-shrink-0 mt-7">
-          <div className="flex flex-col items-center gap-2">
-            <div
-              className="text-xs font-semibold px-3 py-1.5 rounded-lg text-center leading-tight"
-              style={{
-                background: "#10B98118",
-                color: "#10B981",
-                border: "1px solid #10B98135",
-                whiteSpace: "nowrap",
-              }}
-            >
-              Lead exits<br />our funnel
-            </div>
-            <div style={{ color: "#10B981", fontSize: 28, lineHeight: 1 }}>→</div>
-            <div
-              className="text-xs font-semibold px-3 py-1.5 rounded-lg text-center leading-tight"
-              style={{
-                background: "#10B98118",
-                color: "#10B981",
-                border: "1px solid #10B98135",
-                whiteSpace: "nowrap",
-              }}
-            >
-              Sales process<br />begins
-            </div>
-          </div>
-        </div>
-
-        {/* ── Connector (mobile) ── */}
-        <div className="lg:hidden flex flex-col items-center gap-1 py-3">
-          <span style={{ color: "#10B981", fontSize: 18 }}>↓</span>
-          <div
-            className="text-xs font-semibold px-4 py-1.5 rounded-lg"
-            style={{
-              background: "#10B98118",
-              color: "#10B981",
-              border: "1px solid #10B98135",
-            }}
-          >
-            Lead exits our funnel → Sales process begins
-          </div>
-          <span style={{ color: "#10B981", fontSize: 18 }}>↓</span>
-        </div>
-
-        {/* ── Got Watts Sales Process ── */}
+        {/* ── Stage 3 Detail: Sales Process ── */}
         <div className="flex-1 min-w-0">
-          <p
-            className="text-xs font-bold uppercase tracking-widest mb-1 lg:mt-0 mt-2"
-            style={{ color: "var(--text-secondary)" }}
-          >
-            Got Watts Sales Process
+          <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "var(--text-secondary)" }}>
+            Stage 3 — What Conversion Looks Like
           </p>
-          <p className="text-xs mb-3" style={{ color: "var(--text-secondary)" }}>
+          <p className="text-xs mb-4" style={{ color: "var(--text-secondary)" }}>
             {SALES_PROCESS.subtitle}
           </p>
 
@@ -454,7 +433,7 @@ export default async function FunnelAndSalesProcessPage() {
                 className="rounded-xl p-4"
                 style={{
                   background: "var(--surface)",
-                  border: `1px solid ${path.badgeColor ? path.badgeColor + "30" : "var(--border)"}`,
+                  border: `1px solid ${path.badgeColor ? path.badgeColor + "30" : "#10B98130"}`,
                 }}
               >
                 {/* Path header */}
@@ -486,12 +465,9 @@ export default async function FunnelAndSalesProcessPage() {
                   {path.id === "normal" &&
                     path.steps.map((step, i) => (
                       <div key={i} className="flex items-start gap-2">
-                        <StepCard step={step} color="#F97316" />
+                        <StepCard step={step} color="#10B981" />
                         {i < path.steps.length - 1 && (
-                          <span
-                            className="self-start mt-3 flex-shrink-0"
-                            style={{ color: "#F97316", fontSize: 16 }}
-                          >
+                          <span className="self-start mt-3 flex-shrink-0" style={{ color: "#10B981", fontSize: 16 }}>
                             →
                           </span>
                         )}
@@ -500,9 +476,7 @@ export default async function FunnelAndSalesProcessPage() {
 
                   {path.id === "meta" && (
                     <>
-                      {/* Step 1 */}
                       <StepCard step={path.steps[0]} color="#8B5CF6" />
-                      {/* Skipped Podium */}
                       <div className="flex flex-col items-center gap-1 self-start mt-3 flex-shrink-0">
                         <span style={{ color: "#8B5CF6", fontSize: 16 }}>→</span>
                         <div
@@ -510,17 +484,14 @@ export default async function FunnelAndSalesProcessPage() {
                           style={{
                             background: "var(--surface-2)",
                             border: "1px dashed var(--border)",
-                            opacity: 0.45,
+                            opacity: 0.4,
                           }}
                         >
-                          <p className="text-xs" style={{ color: "var(--text-secondary)", fontSize: 10 }}>
-                            Podium
-                          </p>
+                          <p style={{ color: "var(--text-secondary)", fontSize: 10 }}>Podium</p>
                           <p style={{ color: "var(--text-secondary)", fontSize: 9 }}>skipped</p>
                         </div>
                         <span style={{ color: "#8B5CF6", fontSize: 16 }}>→</span>
                       </div>
-                      {/* Step 2 */}
                       <StepCard step={path.steps[1]} color="#8B5CF6" />
                     </>
                   )}
@@ -530,6 +501,47 @@ export default async function FunnelAndSalesProcessPage() {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+function MemberCard({
+  member,
+  color,
+  isMe,
+}: {
+  member: TeamMember;
+  color: string;
+  isMe: boolean;
+}) {
+  return (
+    <div
+      className="rounded-lg p-3 relative"
+      style={{
+        background: isMe ? `${color}10` : "var(--surface-2)",
+        border: `1px solid ${isMe ? color + "45" : "var(--border)"}`,
+      }}
+    >
+      {isMe && (
+        <span
+          className="absolute top-2 right-2 font-bold rounded-full px-1.5 py-0.5"
+          style={{ background: color, color: "#fff", fontSize: 9, letterSpacing: "0.05em" }}
+        >
+          YOU
+        </span>
+      )}
+      <p
+        className="text-xs font-semibold mb-0.5"
+        style={{ color: "var(--text-primary)", paddingRight: isMe ? "2rem" : 0 }}
+      >
+        {member.name}
+      </p>
+      <p className="text-xs mb-1 font-medium" style={{ color }}>
+        {member.role}
+      </p>
+      <p className="text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+        {member.whatTheyDo}
+      </p>
     </div>
   );
 }
