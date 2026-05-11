@@ -13,9 +13,14 @@ export default auth((req) => {
     return NextResponse.next();
   }
 
+  const SHARED_DASHBOARD_PATHS = ["/dashboard/funnel-and-sales-process"];
+
   if (pathname.startsWith("/dashboard")) {
     if (!isLoggedIn) {
       return NextResponse.redirect(new URL("/login", req.url));
+    }
+    if (SHARED_DASHBOARD_PATHS.some((p) => pathname.startsWith(p))) {
+      return NextResponse.next();
     }
     const role = (req.auth?.user as { role?: string })?.role;
     const allowed = `/dashboard/${role}`;
